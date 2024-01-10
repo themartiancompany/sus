@@ -2,6 +2,20 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+_path="$( \
+  export \                                                                                              _OLDPWD="$(pwd)" && \
+    cd \
+      "$(dirname \
+           "${BASH_SOURCE[0]}")" && \                                                                   echo\
+      "$(pwd)" && \
+    cd "${_OLDPWD}")" && \
+    unset \
+      _OLDPWD
+
+app_name="$( \
+  basename \
+    "${BASH_SOURCE[0]}")"
+
 # Add an user
 _setup_user() {
   local \
@@ -22,7 +36,27 @@ _setup_user() {
       "${_home}"
 }
 
+_msg_error() {
+  local \
+    _msg=(
+      "$@")
+  echo \
+    "${_msg[*]}"
+  exit
+}
+
+_usage() {
+  echo \
+    "Usage: ${app_name} <new_user>"
+}
+
 _user="${1}"
+
+if (( $# < 1 )); then
+  _usage
+  _msg_error \
+    "No user specified"
+fi
 
 _setup_user \
   "${_user}"
