@@ -3,15 +3,16 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 _path="$( \
-  export \                                                                                              _OLDPWD="$(pwd)" && \
-    cd \
-      "$(dirname \
-           "${BASH_SOURCE[0]}")" && \
-    echo \
-      "$(pwd)" && \
-    cd "${_OLDPWD}")" && \
-    unset \
-      _OLDPWD
+  export \
+    _OLDPWD="$(pwd)" && \
+  cd \
+    "$(dirname \
+         "${BASH_SOURCE[0]}")" && \
+  echo \
+    "$(pwd)" && \
+  cd "${_OLDPWD}")" && \
+unset \
+  _OLDPWD
 
 app_name="$( \
   basename \
